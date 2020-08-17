@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>深入理解HTTP协议 | Homer的博客</title>
+  <title>测试用例的编写与设计 | Homer的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文通过这段时间查阅的书籍、网络文献等，总结了一套自己的关于HTTP的学习总结。本文会持续总结，在不断的学习和实践中逐渐完善对于计算机网络的理解。  HTTP是什么 HTTP (hypertext transport protocol) 翻译过来为“超文本传输协议”。那么将这个词语拆分为三个部分。   “超文本”比“文本”多了一个“超”，显然是要比文本更加丰富，因为超文本可以将多种文本&#x2F;图像等进">
+  <meta name="description" content="测试用例的编写与设计一、规范及技巧1. 用例标题要求： 1）精简明确">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入理解HTTP协议">
-<meta property="og:url" content="http://yoursite.com/2020/05/22/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3HTTP/index.html">
+<meta property="og:title" content="测试用例的编写与设计">
+<meta property="og:url" content="http://yoursite.com/2020/08/17/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E7%9A%84%E7%BC%96%E5%86%99%E4%B8%8E%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="Homer的博客">
-<meta property="og:description" content="本文通过这段时间查阅的书籍、网络文献等，总结了一套自己的关于HTTP的学习总结。本文会持续总结，在不断的学习和实践中逐渐完善对于计算机网络的理解。  HTTP是什么 HTTP (hypertext transport protocol) 翻译过来为“超文本传输协议”。那么将这个词语拆分为三个部分。   “超文本”比“文本”多了一个“超”，显然是要比文本更加丰富，因为超文本可以将多种文本&#x2F;图像等进">
+<meta property="og:description" content="测试用例的编写与设计一、规范及技巧1. 用例标题要求： 1）精简明确">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://raw.githubusercontent.com/Homerlam/Figurebed/master/img/20200524114013.png">
-<meta property="article:published_time" content="2020-05-22T11:05:22.000Z">
-<meta property="article:modified_time" content="2020-05-24T06:57:38.871Z">
+<meta property="article:published_time" content="2020-08-17T13:20:59.000Z">
+<meta property="article:modified_time" content="2020-08-17T14:30:52.602Z">
 <meta property="article:author" content="Homerlam">
-<meta property="article:tag" content="HTTP">
+<meta property="article:tag" content="测试用例">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Homerlam/Figurebed/master/img/20200524114013.png">
   
     <link rel="alternative" href="/atom.xml" title="Homer的博客" type="application/atom+xml">
   
@@ -143,143 +141,119 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-深入理解HTTP" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-测试用例的编写与设计" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      深入理解HTTP协议
+      测试用例的编写与设计
     </h1>
   
 
         
-        <a href="/2020/05/22/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3HTTP/" class="archive-article-date">
-  	<time datetime="2020-05-22T11:05:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-22</time>
+        <a href="/2020/08/17/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E7%9A%84%E7%BC%96%E5%86%99%E4%B8%8E%E8%AE%BE%E8%AE%A1/" class="archive-article-date">
+  	<time datetime="2020-08-17T13:20:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-17</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>本文通过这段时间查阅的书籍、网络文献等，总结了一套自己的关于HTTP的学习总结。本文会持续总结，在不断的学习和实践中逐渐完善对于计算机网络的理解。</p>
-</blockquote>
-<h2 id="HTTP是什么"><a href="#HTTP是什么" class="headerlink" title="HTTP是什么"></a>HTTP是什么</h2><ul>
-<li>HTTP (hypertext transport protocol) 翻译过来为<strong>“超文本传输协议”</strong>。那么将这个词语拆分为三个部分。</li>
-</ul>
-<ol>
-<li><p><strong>“超文本”</strong>比“文本”多了一个“超”，显然是要比文本更加丰富，因为超文本可以将多种文本/图像等进行混合，更重要的是可以从一个文本跳转到另一个文本（文本链接）。</p>
-</li>
-<li><p><strong>“传输”</strong>，传输的过程中需要沟通，沟通即可能一对一沟通也可能一对多沟通(进行<strong>内容协商</strong>)。无论怎么样，参加沟通的人数&gt;1，想尽一切一切办法更快更好的完成相应的任务。</p>
-</li>
-<li><p><strong>“协议”</strong>，无规矩不成方圆，做机密项目之前需要签署保密协议，找工作要签”三方协议”，三方协议是学校，公司，和个人组成的协议，都是为了让大家受一定的约束，违反了即有相应的惩罚</p>
+        <h1 id="测试用例的编写与设计"><a href="#测试用例的编写与设计" class="headerlink" title="测试用例的编写与设计"></a>测试用例的编写与设计</h1><h2 id="一、规范及技巧"><a href="#一、规范及技巧" class="headerlink" title="一、规范及技巧"></a>一、规范及技巧</h2><h3 id="1-用例标题"><a href="#1-用例标题" class="headerlink" title="1. 用例标题"></a>1. 用例标题</h3><p>要求：</p>
+<p>1）精简明确</p>
 <a id="more"></a>
 
-</li>
-</ol>
-<h2 id="HTTP报文详解"><a href="#HTTP报文详解" class="headerlink" title="HTTP报文详解"></a>HTTP报文详解</h2><blockquote>
-<p>客户端与服务端进行交互的信息为报文。客户端为请求报文，服务端为响应报文。</p>
-</blockquote>
-<p><strong><em>请求报文</em></strong></p>
-<p><img src="https://raw.githubusercontent.com/Homerlam/Figurebed/master/img/20200524114013.png" alt=""></p>
-<p>请求报文通常由三部分组成：</p>
+<p>规范：</p>
+<p>2）两端拼写统一用：Android/iOS</p>
+<p>3）目录区分端统一用：（端）,如：手机直播（Android）</p>
+<p>4）长度尽量控制15个字以内</p>
+<p>5）用例标题间隔统一用下划线：_，如：手机直播_开播页</p>
+<p>写法：概括总结所测试的功能点</p>
+<p>1）主谓结构：如，违规弹窗增加指引</p>
+<p>2）动宾结构：如，点击喜欢 OR 开启欢乐斗</p>
+<p>3）偏正结构：如，更多登录引导 OR 我的声音</p>
+<p>4）并列结构：如，信息流礼包和季度礼包</p>
+<p>5）纯名词 ：如，自由模式</p>
+<p>6）什么情况用特殊符号：</p>
+<p>​        建议尽量不用特殊符号</p>
+<p>​        同一个标题最好不要多个标点符号</p>
+<p>​        “ _ ”，某块功能下的功能测试点，如：”编辑资料_头像编辑”（但如整合单个目录，如建立一个编辑资料的目录，则”编辑资料_“可以去掉）</p>
+<p>​        “、”，”&amp;“，不建议使用，可以用文字”与“或”及“，如”红点显示_平台、版本验证“，或改为”红点显示_平台及版本验证“</p>
+<p>​        “/“，不建议使用，可以用文字”或“，如”商家/小二进入直播间气泡显示“，可改为”商家或小二进入直播间气泡显示“</p>
+<p>7）充分利用目录名（结合testlink）</p>
+<h3 id="2-摘要"><a href="#2-摘要" class="headerlink" title="2. 摘要"></a>2. 摘要</h3><p>摘要的基本职能：</p>
+<p>1）介绍用例功能、技术背景和复杂的需求逻辑说明，帮助执行人快速理解，并进行发散性测试</p>
+<p>2）用例相关操作说明、配置链接、操作文档链接或其他相关指引</p>
+<p>3）较复杂配置功能和业务，应整理成档放至wiki（以前用共享目录）</p>
 <ol>
-<li><p><strong>起始行</strong>：描述请求或者响应的基本信息</p>
-<ol>
-<li><p>请求方法：一共有八种方法选择，如下列表所示，采用不同的方法可以获取不同的资源</p>
-<table>
-<thead>
-<tr>
-<th>请求方法</th>
-<th>方法描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>GET</td>
-<td>请求服务器某一资源。如图片、视频等。</td>
-</tr>
-<tr>
-<td>POST</td>
-<td>向指定资源提交数据进行处理请求，数据包含在请求体中</td>
-</tr>
-<tr>
-<td>HEAD</td>
-<td>用于确认URL的有效性以及资源更新的日期时间，不返回报文主体，只返回报文首部</td>
-</tr>
-<tr>
-<td>PUT</td>
-<td>用来传输文件，将文件内容放进报文主体中，保存到URL指定位置上</td>
-</tr>
-<tr>
-<td>DELETE</td>
-<td>与PUT相反，请求URL删除指定资源</td>
-</tr>
-<tr>
-<td>OPTIONS</td>
-<td>查询针对请求URL指定的资源支持的方法</td>
-</tr>
-<tr>
-<td>TRACE</td>
-<td>用于追踪路径，发送请求时，首部字段Max-Forwards会指定一个数值，每经过一个服务器之后，该数值减1，当数值为0时，停止传输，最后接收到的服务器响应</td>
-</tr>
-<tr>
-<td>CONNECT</td>
-<td>用于在于代理服务器通信时建立隧道，实现用隧道协议进行TCP通信</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>URL</p>
-<blockquote>
-<p>统一资源标识符(Uniform Resource Identifier),严格来说不等于网址，网址包含URL和URN，可是URL太出名了以致于URL=”网址”。</p>
-</blockquote>
+<li><p>前提</p>
 <ul>
-<li>网络层的IP主要目的是解决路由和寻址。现在的IP地址按照”.”分割，总共2的32次方大约42亿。对于计算机来说比较方便，但是对于人类来说还是不容易记忆，此时出现DNS了，他把IP地址映射为我们平时常见的”redis.org”，按照”.”分割域名，从左到右级别越高，最右边为”顶级域名”。如下图所示</li>
-</ul>
-<p>(图2)</p>
-<ul>
-<li><p>TCP提供可靠(数据不丢失)的字节流(数据完整性)，而且也有方便我们记忆的域名，但是互联网资源千万种，也不知道访问什么(图片，文字，视频一大堆)，这个时候URI(统一资源标识符)出现了</p>
-<p><strong><em>URL格式</em></strong></p>
-<p>（图3）</p>
-<ul>
-<li><p>协议名:HTTP协议，另外还有ftp等协议。告知访问资源时使用什么协议。</p>
+<li><p>多个前提应逐一描述清晰</p>
 </li>
-<li><p>紧接着是分隔符:”://“</p>
+<li><p>包含特殊账号</p>
 </li>
-<li><p>主机名：标记互联网主机，可以是IP也可以是域名，如果不写端口则使用默认端口，例如HTTP为80，HTTPS为443.</p>
+<li><p>功能操作路径</p>
 </li>
-<li><p>登录认证信息：登录主机时的用户名密码(不建议，直接告诉了别人你的隐私信息)</p>
-</li>
-<li><p>主机名：此处可以是域名也可以是IP，如果不写端口号则是默认端口。比如HTTP默认端口为80，HTTPS默认端口为443</p>
-</li>
-<li><p>资源所在位置：资源在主机上的位置，使用“/”分隔多级目录，在这里是“/en/download.html”。注意，必须”/“开头</p>
-</li>
-<li><p>参数：用”?”开始，表示额外的请求要求。通常使用”key=value”的方式存在，如果多个”key=value”则使用”&amp;”相连。</p>
+<li><p>注意与摘要区分描述，避免混淆</p>
 </li>
 </ul>
 </li>
+<li><p>步骤</p>
+<ul>
+<li><p>用例描述通俗易懂，不要出现歧义，尽可能使用书面语</p>
+</li>
+<li><p>写步骤的步骤：</p>
+</li>
+<li><p>不应有多个操作，过多应拆分步骤</p>
+</li>
+<li><p>不应过长操作路径，有的话写在前提中</p>
+</li>
+<li><p>P0 用例中不应夹杂非P0范围用例，如异常步骤操作</p>
+</li>
+<li><p>单条用例执行不应过长，尽量不要超过7步（or 其他？）</p>
+</li>
+<li><p>结合手Y项目需要对用例数控制，可以对单条步骤的用例尽量与同类合并；多条用例前后无关系，应该步骤中注明前提</p>
+</li>
 </ul>
 </li>
-<li><p>请求体</p>
-<p>状态行—-服务器响应的状态</p>
+<li><p>结果</p>
 <ul>
-<li>版本号：使用的HTTP是什么版本</li>
-<li></li>
+<li><p>结果有多个时，应分点描述，尤其两端结果不同时更应分点列式描述（结合testlink特性，如不分点整个用例会特别长，不利于阅读）</p>
+</li>
+<li><p>用例结果明确，不要出现是否、可能等字眼对于可预见的预期结果，应描述发生了什么，而不应该描述没有发生什么；</p>
+</li>
+<li><p>如未绑定手机情况下手机绑定处应显示成未绑定，而不应该描述成不显示成已绑定；</p>
+</li>
+<li><p>对于不可预见的预期结果，如可描述成不会发生崩溃，卡死</p>
+</li>
+<li><p>结果中尽量避免夹杂步骤</p>
+</li>
+</ul>
+</li>
+<li><p>展望</p>
+<ul>
+<li><p>用例编写应从写给别人看的出发点描述，我们是一个协作的团队</p>
+</li>
+<li><p>标题、摘要、前提、步骤及结果，语言应均精练描述，通俗易懂，表达应通顺</p>
+</li>
+<li><p>用例完善，利于工作交接及功能轮换</p>
+</li>
 </ul>
 </li>
 </ol>
+<h2 id="二、用例整理"><a href="#二、用例整理" class="headerlink" title="二、用例整理"></a>二、用例整理</h2><h3 id="1-目录整理"><a href="#1-目录整理" class="headerlink" title="1. 目录整理"></a>1. 目录整理</h3><ul>
+<li><p>按功能聚合建子目录管理，避免单个目录用例过多。过多容易混杂及庞大，不利于用例的持续更新迭代。</p>
 </li>
-<li><p><strong>头部字段集合</strong>：key-value形式说明报文</p>
+<li><p>模块划分清晰合理，避免过多用例放在一个目录下</p>
 </li>
-<li><p><strong>消息正文</strong>：实际传输诸如图片等信息。具体如下图所示</p>
+<li><p>目录建立时考虑前后台承接顺序</p>
 </li>
-</ol>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
-<li>[计算机网络-自顶向下方法]</li>
-<li><a href="https://blog.csdn.net/weixin_38087538/article/details/82838762" target="_blank" rel="noopener">Http协议详解(深入理解)</a></li>
-<li><a href="https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&mid=2247487744&idx=1&sn=e19e592a9e60f67afedf4c86415347f4&chksm=ce405ad4f937d3c21f5624a1e9c140f0fb0a8a3f397bd94528621070e67dc8a867fba106cef6&scene=126&sessionid=1590041861&key=bdd3db2c3f0f72f7e3599d2b2c9788c66c8fa9e411c9fa3567c7ab58fe4aecc568474e830a96a33d954b926502e390ea95dfdd5c742df4bb54dd839dccf74dd108d505afd67b7b252b9228510fcbf45a&ascene=1&uin=MTg4MDYwOTEyMA%3D%3D&devicetype=Windows+10+x64&version=62090070&lang=zh_CN&exportkey=AafMFLQMWKUejSlHLwXiuSc%3D&pass_ticket=wCP6%2F8NLDTVNa1aNlnJAc3GRBwMg6k2w55wt2hi4jLDK3TBEPJjNKbprWvY6mySy" target="_blank" rel="noopener">炸裂！万字长文拿下HTTP</a></li>
-</ol>
+</ul>
+<h3 id="2-用例整理"><a href="#2-用例整理" class="headerlink" title="2. 用例整理"></a>2. 用例整理</h3><ul>
+<li>用例的摘要、前提、步骤、期望结果描述只留下必需的，尽可能精炼，去掉冗余的描述<br>需要结合该需求之前的用例来一起整理（尤其是优化功能），去掉冗余，补充遗漏，<br>需要考虑功能整体性的P0/P1/P2整理</li>
+</ul>
 
       
 
@@ -293,7 +267,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HTTP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">测试用例</a>
         		</li>
       		
 		</ul>
@@ -349,7 +323,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/05/22/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3HTTP/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/08/17/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E7%9A%84%E7%BC%96%E5%86%99%E4%B8%8E%E8%AE%BE%E8%AE%A1/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -363,18 +337,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/08/17/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E7%9A%84%E7%BC%96%E5%86%99%E4%B8%8E%E8%AE%BE%E8%AE%A1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          测试用例的编写与设计
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/04/11/JAVA%E4%B8%8EC-%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%88%E6%B5%85%E8%B0%88%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JAVA与C++的区别（浅谈）</div>
+    <a href="/2020/05/22/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3HTTP/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深入理解HTTP协议</div>
       <i class="icon-circle-right"></i>
     </a>
   
